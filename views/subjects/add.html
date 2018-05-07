@@ -1,0 +1,43 @@
+{{define "content"}}
+
+<div class="row">
+
+  <div class="col-lg-3"></div>
+
+  <div class="col-lg-6">
+      <div class="card">
+          <div class="card-title">
+              <h4>Subject</h4>
+          </div>
+          <div class="card-body">
+              <div class="basic-form">
+                  <form method="POST" action="{{ .URL }}/subjects/add">
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input name="name" type="text" class="form-control" placeholder="Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>VAT</label>
+                        <input name="vat" type="text" class="form-control" placeholder="VAT">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input name="address" type="text"class="form-control" placeholder="Address">
+                    </div>
+
+                    <button type="submit" class="btn btn-success pull-right">Add</button>
+
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-lg-3"></div>
+
+</div>
+
+{{end}}

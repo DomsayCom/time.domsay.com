@@ -1,0 +1,198 @@
+{{define "content"}}
+
+<!-- Start Page Content -->
+<div class="row">
+
+      <div class="col-md-3">
+          <div class="card p-30">
+              <div class="media">
+                  <div class="media-left meida media-middle">
+                      <span><i class="fa fa-users f-s-40 color-warning"></i></span>
+                  </div>
+                  <div class="media-body media-text-right">
+                      <h2>{{ .AppCounter.Users }}</h2>
+                      <p class="m-b-0">Users</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-3">
+          <div class="card p-30">
+              <div class="media">
+                  <div class="media-left meida media-middle">
+                      <span><i class="fa fa-address-card f-s-40 color-primary"></i></span>
+                  </div>
+                  <div class="media-body media-text-right">
+                      <h2>{{ .AppCounter.Subjects }}</h2>
+                      <p class="m-b-0">Subjects</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-3">
+          <div class="card p-30">
+              <div class="media">
+                  <div class="media-left meida media-middle">
+                      <span><i class="fa fa-wpforms f-s-40 color-success"></i></span>
+                  </div>
+                  <div class="media-body media-text-right">
+                      <h2>{{ .AppCounter.Projects }}</h2>
+                      <p class="m-b-0">Projects</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-3">
+          <div class="card p-30">
+              <div class="media">
+                  <div class="media-left meida media-middle">
+                      <span><i class="fa fa-tasks f-s-40 color-warning"></i></span>
+                  </div>
+                  <div class="media-body media-text-right">
+                      <h2>{{ .AppCounter.Tasks }}</h2>
+                      <p class="m-b-0">Tasks</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+</div>
+
+
+
+<div class="row" id="report">
+
+  <div class="col-lg-12 p-30">
+
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title">Projects this month <button class="btn btn-danger pull-right" type="button" onclick="printReport()">PDF Report</button></h4>
+              <div style="min-height:400px" id="projects"></div>
+          </div>
+      </div>
+
+      {{ range $key, $row := .Projects }}
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ $row.Name }}</h4>
+                <div class="card-body">
+                    <div class="col-lg-4">
+
+                      <div id="tasks"></div>
+
+                    </div>
+
+                    <div class="col-lg-8">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th>Task</th>
+                                      <th>Desc</th>
+                                      <th>Start</th>
+                                      <th>End</th>
+                                      <th>Duration</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                {{ range $tkey, $trow := $row.Tasks }}
+
+                                  <tr>
+                                      <td>{{ $trow.Name }}</td>
+                                      <td>{{ $trow.Description }}</td>
+                                      <td>{{ $trow.Start }}</td>
+                                      <td>{{ $trow.End }}</td>
+                                      <td>{{ $trow.Duration }}</td>
+                                  </tr>
+
+                                {{ end }}
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+      {{ end }}
+
+  </div>
+
+  <style>
+
+    #report text{
+      font-size:18px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+  </style>
+
+  <!-- Chart code -->
+  <script>
+  var chart = AmCharts.makeChart("projects", {
+    "type": "pie",
+    "startDuration": 0,
+     "theme": "light",
+    "addClassNames": true,
+    "legend":{
+     	"position":"right",
+      "marginRight":100,
+      "autoMargins":false
+    },
+    "innerRadius": "30%",
+    "defs": {
+      "filter": [{
+        "id": "shadow",
+        "width": "200%",
+        "height": "200%",
+        "feOffset": {
+          "result": "offOut",
+          "in": "SourceAlpha",
+          "dx": 0,
+          "dy": 0
+        },
+        "feGaussianBlur": {
+          "result": "blurOut",
+          "in": "offOut",
+          "stdDeviation": 5
+        },
+        "feBlend": {
+          "in": "SourceGraphic",
+          "in2": "blurOut",
+          "mode": "normal"
+        }
+      }]
+    },
+    "dataProvider": [
+      {"country": "Lithuania","litres": 501.9},
+      {"country": "Czech Republic","litres": 301.9},
+      {"country": "Ireland","litres": 201.1}
+    ],
+    "valueField": "litres",
+    "titleField": "country",
+  });
+
+  function printReport(){
+
+    var prtContent = document.getElementById("report");
+    var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.write(prtContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+
+  }
+
+  </script>
+
+</div>
+
+{{end}}

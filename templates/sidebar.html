@@ -1,0 +1,37 @@
+{{define "sidebar"}}
+
+  <!-- Left Sidebar  -->
+  <div class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div class="scroll-sidebar">
+
+          <!-- Logo -->
+          <div class="navbar-header text-center">
+              <a class="navbar-brand" href="{{ .URL }}/">
+                  <!-- Logo icon -->
+                  <b><img src="{{ .URL }}/static/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                  <!--End Logo icon -->
+              </a>
+          </div>
+          <!-- End Logo -->
+
+          <!-- Sidebar navigation-->
+          <nav class="sidebar-nav">
+              <ul id="sidebarnav">
+                  <li class="nav-devider"></li>
+                  <li><a href="{{ .URL }}/dashboard"><i class="fa fa-tachometer"></i>Dashboard </a></li>
+                  <li class="nav-devider"></li>
+                  <li class="nav-label">Apps</li>
+                  <li><a href="{{ .URL }}/users"><i class="fa fa-users"></i>Users </a></li>
+                  <li><a href="{{ .URL }}/subjects"><i class="fa fa-address-card"></i>Subjects </a></li>
+                  <li><a href="{{ .URL }}/projects"><i class="fa fa-wpforms"></i>Projects </a></li>
+                  <li><a href="{{ .URL }}/tasks"><i class="fa fa-tasks"></i>Tasks </a></li>
+              </ul>
+          </nav>
+          <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+  </div>
+  <!-- End Left Sidebar  -->
+
+{{end}}
